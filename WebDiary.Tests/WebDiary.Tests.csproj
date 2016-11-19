@@ -92,9 +92,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebDiary\WebDiary.csproj">
+    <ProjectReference Include="..\WebDiary.WebUI\WebDiary.WebUI.csproj">
       <Project>{27C6BDD6-A103-45F7-9A4C-96788373AB09}</Project>
-      <Name>WebDiary</Name>
+      <Name>WebDiary.WebUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
