@@ -1,0 +1,66 @@
+using System.Data.Common;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using WebDiary.DAL.Context;
+using WebDiary.DAL.Entities;
+
+namespace WebDiary.DAL.Migrations
+{
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
+    {
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = false;
+            ContextKey = "WebDiary.Models.ApplicationDbContext";
+        }
+
+        protected override void Seed(ApplicationDbContext context)
+        {
+            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            var role1 = new IdentityRole { Name = "admin" };
+            var role2 = new IdentityRole { Name = "user" };
+
+            roleManager.Create(role1);
+            roleManager.Create(role2);
+
+            var admin = new ApplicationUser { Email = "denjers@yandex.ru", UserName = "denjers@yandex.ru" };
+            string password = "1997Totti1997";
+            var result = userManager.Create(admin, password);
+
+            if (result.Succeeded)
+            {
+                userManager.AddToRole(admin.Id, role1.Name);
+                userManager.AddToRole(admin.Id, role2.Name);
+            }
+
+            context.Notes.AddOrUpdate(new Note[]
+            {
+                new Note
+                {
+                    Name = "Football",
+                    Date = DateTime.UtcNow,
+                    Message = "Football is sucks",
+                    Privacy = true,
+                    User = userManager.Users.First(u => u.Email == admin.Email)
+                },
+                new Note
+                {
+                    Name = "Basketball",
+                    Date = DateTime.UtcNow,
+                    Message = "Basketball is for faggots",
+                    Privacy = true,
+                    User = userManager.Users.First(u => u.Email == admin.Email)
+                },
+            });
+
+            context.SaveChanges();
+        }
+    }
+}

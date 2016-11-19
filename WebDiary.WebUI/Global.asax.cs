@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Ninject.Web.Mvc;
+
 
 namespace WebDiary
 {
@@ -12,6 +10,8 @@ namespace WebDiary
     {
         protected void Application_Start()
         {
+            var kernel = DependencyConfigurations.RegisterDependency();
+            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
