@@ -45,7 +45,7 @@ namespace WebDiary.DAL.Migrations
                 new Note
                 {
                     Name = "Football",
-                    Date = DateTime.UtcNow,
+                    Date = new DateTime(2016,11,15,18,34,43),
                     Message = "Football is sucks",
                     Privacy = true,
                     User = userManager.Users.First(u => u.Email == admin.Email)
@@ -53,7 +53,7 @@ namespace WebDiary.DAL.Migrations
                 new Note
                 {
                     Name = "Basketball",
-                    Date = DateTime.UtcNow,
+                    Date = new DateTime(2016,11,15,18,34,43),
                     Message = "Basketball is for faggots",
                     Privacy = true,
                     User = userManager.Users.First(u => u.Email == admin.Email)
