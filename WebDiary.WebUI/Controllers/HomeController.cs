@@ -15,15 +15,17 @@ namespace WebDiary.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var user = _userService.GetUserById(User.Identity.GetUserId());
+            return View(user);
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
             ViewBag.USERID = User.Identity.GetUserId();
+            var user=_userService.GetUserById(User.Identity.GetUserId());
 
-            return View();
+            return View(user);
         }
     }
 }

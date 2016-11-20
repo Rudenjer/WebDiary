@@ -15,6 +15,9 @@ namespace WebDiary
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
             kernel.Bind<IUserService>().To<UserService>();
+
+            kernel.Bind<INoteService>().To<NoteSevrice>();
+
             return kernel;
         }
     }

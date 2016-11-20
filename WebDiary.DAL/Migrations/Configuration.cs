@@ -57,7 +57,7 @@ namespace WebDiary.DAL.Migrations
                     Message = "Basketball is for faggots",
                     Privacy = true,
                     User = userManager.Users.First(u => u.Email == admin.Email)
-                },
+                }
             });
 
             context.SaveChanges();

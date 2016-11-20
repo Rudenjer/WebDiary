@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WebDiary.DAL.Entities.Note>
+
+@*@{
+    Layout = null;
+}*@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<div>
+    <br>
+
+    @foreach (var item in Model)
+    {
+        <div>
+            <a href=""><h4 class="media-heading">@item.Name</h4></a>
+            @item.Message
+            <a href="">Полностью</a>
+        </div>
+        <div>
+            <div class="col-md-2">
+                @item.Date
+            </div>
+            <div class="col-md-2 .col-md-offset-4">
+                @item.Privacy
+            </div>
+        </div>
+        <div>
+                @foreach (var tag in item.Tags)
+                {
+                    <span class="label label-primary">@tag.Name</span>
+                }
+        </div>
+
+        <hr>
+    }
+           
+        </div>
+</body>
+</html>

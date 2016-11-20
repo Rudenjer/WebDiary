@@ -3,4 +3,7 @@
     ViewBag.Title = "Home Page";
 }
 
-@Model.Email
+@if (Model.Email!=null)
+{
+    @Model.Email
+}

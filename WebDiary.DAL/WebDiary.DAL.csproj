@@ -98,6 +98,10 @@
     <Compile Include="Migrations\201611191224530_Add notes and tags.Designer.cs">
       <DependentUpon>201611191224530_Add notes and tags.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611200006562_note edit.cs" />
+    <Compile Include="Migrations\201611200006562_note edit.Designer.cs">
+      <DependentUpon>201611200006562_note edit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
@@ -115,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611191224530_Add notes and tags.resx">
       <DependentUpon>201611191224530_Add notes and tags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611200006562_note edit.resx">
+      <DependentUpon>201611200006562_note edit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
