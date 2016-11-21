@@ -1,7 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using System.Configuration;
+using System.Data.Entity;
+using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Ninject.Web.Mvc;
+using WebDiary.BLL.Interfaces;
+using WebDiary.DAL.Context;
 
 
 namespace WebDiary
@@ -11,6 +15,7 @@ namespace WebDiary
         protected void Application_Start()
         {
             var kernel = DependencyConfigurations.RegisterDependency();
+            Database.SetInitializer<ApplicationDbContext>(null);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
