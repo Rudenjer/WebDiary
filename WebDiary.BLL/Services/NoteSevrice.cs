@@ -21,6 +21,12 @@ namespace WebDiary.BLL.Services
         public IEnumerable<Note> GetNotesForUser(string userId)
         {
             return _unitOfWork.NoteRepository.Get(m => m.UserId == userId);
-        } 
+        }
+
+        public void AddNote(Note note)
+        {
+            _unitOfWork.NoteRepository.Create(note);
+            _unitOfWork.Save();
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Data.Common;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -40,6 +41,11 @@ namespace WebDiary.DAL.Migrations
                 userManager.AddToRole(admin.Id, role2.Name);
             }
 
+            //List<Tag> TagList = new List<Tag>();
+
+            //TagList.Add(new Tag(Name="gfhgffh"));
+           
+
             context.Notes.AddOrUpdate(new Note[]
             {
                 new Note
@@ -48,17 +54,23 @@ namespace WebDiary.DAL.Migrations
                     Date = new DateTime(2016,11,15,18,34,43),
                     Message = "Football is sucks",
                     Privacy = true,
-                    User = userManager.Users.First(u => u.Email == admin.Email)
-                },
+                    User = userManager.Users.First(u => u.Email == admin.Email),
+                    Tags = new List<Tag>() {new Tag { Name="Спорт"}, new Tag { Name = "Футбол" } }
+
+        },
                 new Note
                 {
                     Name = "Basketball",
                     Date = new DateTime(2016,11,15,18,34,43),
                     Message = "Basketball is for faggots",
                     Privacy = true,
-                    User = userManager.Users.First(u => u.Email == admin.Email)
+                    User = userManager.Users.First(u => u.Email == admin.Email),
+                    Tags = new List<Tag>() {new Tag { Name="Спорт"}, new Tag { Name = "Баксетбол" } }
                 }
             });
+
+
+
 
             context.SaveChanges();
         }

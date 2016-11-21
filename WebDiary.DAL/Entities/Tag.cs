@@ -14,7 +14,5 @@ namespace WebDiary.DAL.Entities
 
         [Required]
         public string Name { get; set; }
-
-        public virtual ICollection<Note> Games { get; set; } = new List<Note>();
     }
 }

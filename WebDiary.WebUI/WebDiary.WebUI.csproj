@@ -241,6 +241,7 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Note\Index.cshtml" />
+    <Content Include="Views\Note\AddNote.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebDiary.BLL\WebDiary.BLL.csproj">

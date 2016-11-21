@@ -10,5 +10,8 @@ namespace WebDiary.BLL.Interfaces
     public interface INoteService
     {
         IEnumerable<Note> GetNotesForUser(string userId);
+
+        void AddNote(Note note);
+        
     }
 }
