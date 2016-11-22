@@ -7,13 +7,13 @@ namespace WebDiary.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class noteedit : IMigrationMetadata
+    public sealed partial class Updatetags : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(noteedit));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Updatetags));
         
         string IMigrationMetadata.Id
         {
-            get { return "201611200006562_note edit"; }
+            get { return "201611212122451_Update tags"; }
         }
         
         string IMigrationMetadata.Source

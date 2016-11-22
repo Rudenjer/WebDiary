@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using WebDiary.BLL.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using WebDiary.DAL.Entities;
+using WebDiary.ViewModels.NoteViewModels;
 
 
 namespace WebDiary.Controllers
@@ -14,11 +15,15 @@ namespace WebDiary.Controllers
     public class NoteController : Controller
     {
 
-        private readonly INoteService _noteService;
 
-        public NoteController(INoteService noteService)
+
+        private readonly INoteService _noteService;
+        private readonly IUserService _userService;
+
+        public NoteController(INoteService noteService, IUserService userService)
         {
             _noteService = noteService;
+            _userService = userService;
         }
 
 
@@ -37,9 +42,39 @@ namespace WebDiary.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNote(Note note)
+        public ActionResult AddNote(AddNoteViewModel addNote)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+
+                string[] tags = addNote.TagsString.Split(',');
+
+                List<Tag> Tlist = new List<Tag>();
+
+                foreach (var item in tags)
+                {
+                    Tlist.Add(new Tag() {Name = item});
+                }
+
+                Note note = new Note()
+                {
+                    Date = DateTime.UtcNow,
+                    //User = _userService.GetUserById(User.Identity.GetUserId()),
+                    Name = addNote.Name,
+                    Message = addNote.Message,
+                    UserId = User.Identity.GetUserId(),
+                    Privacy = addNote.Privacy,
+                    Tags = Tlist
+                };
+
+                _noteService.AddNote(note);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
 

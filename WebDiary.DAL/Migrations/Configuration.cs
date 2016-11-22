@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Data.Common;
+using System.IO.Ports;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WebDiary.DAL.Context;
@@ -44,28 +45,39 @@ namespace WebDiary.DAL.Migrations
             //List<Tag> TagList = new List<Tag>();
 
             //TagList.Add(new Tag(Name="gfhgffh"));
-           
 
-            context.Notes.AddOrUpdate(new Note[]
+            var sport = default(Tag);
+            var foot = default(Tag);
+            var basket = default(Tag);
+
+
+
+            //context.Set<Tag>().AddOrUpdate(d=>d.Name,
+            //    sport=new Tag() { Name = "Спорт" },
+            //    foot=new Tag() { Name = "Футбол"},
+            //    basket = new Tag() { Name = "Баскет" }
+            //    );
+
+            context.Notes.AddOrUpdate( new Note[]
             {
-                new Note
+                new Note()
                 {
                     Name = "Football",
                     Date = new DateTime(2016,11,15,18,34,43),
                     Message = "Football is sucks",
                     Privacy = true,
                     User = userManager.Users.First(u => u.Email == admin.Email),
-                    Tags = new List<Tag>() {new Tag { Name="Спорт"}, new Tag { Name = "Футбол" } }
+                    Tags = new List<Tag>() { new Tag() {Name = "Спорт"}, new Tag() {Name = "Футбол" } }
 
         },
-                new Note
+                new Note()
                 {
                     Name = "Basketball",
                     Date = new DateTime(2016,11,15,18,34,43),
                     Message = "Basketball is for faggots",
                     Privacy = true,
                     User = userManager.Users.First(u => u.Email == admin.Email),
-                    Tags = new List<Tag>() {new Tag { Name="Спорт"}, new Tag { Name = "Баксетбол" } }
+                    Tags = new List<Tag>() { new Tag() {Name = "Спорт"}, new Tag() {Name = "Баксетбол" } }
                 }
             });
 

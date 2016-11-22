@@ -98,13 +98,13 @@
     <Compile Include="Migrations\201611191224530_Add notes and tags.Designer.cs">
       <DependentUpon>201611191224530_Add notes and tags.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611200006562_note edit.cs" />
-    <Compile Include="Migrations\201611200006562_note edit.Designer.cs">
-      <DependentUpon>201611200006562_note edit.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201611211851519_add tags data.cs" />
     <Compile Include="Migrations\201611211851519_add tags data.Designer.cs">
       <DependentUpon>201611211851519_add tags data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611220659106_tags again.cs" />
+    <Compile Include="Migrations\201611220659106_tags again.Designer.cs">
+      <DependentUpon>201611220659106_tags again.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,11 +124,11 @@
     <EmbeddedResource Include="Migrations\201611191224530_Add notes and tags.resx">
       <DependentUpon>201611191224530_Add notes and tags.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611200006562_note edit.resx">
-      <DependentUpon>201611200006562_note edit.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611211851519_add tags data.resx">
       <DependentUpon>201611211851519_add tags data.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611220659106_tags again.resx">
+      <DependentUpon>201611220659106_tags again.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
