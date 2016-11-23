@@ -15,9 +15,6 @@ namespace WebDiary.ViewModels.NoteViewModels
         public string Message { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
-
-        [Required]
         public bool Privacy { get; set; }
 
         public string TagsString { get; set; }

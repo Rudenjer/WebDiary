@@ -12,6 +12,8 @@ namespace WebDiary.BLL.Interfaces
         IEnumerable<Note> GetNotesForUser(string userId);
 
         void AddNote(Note note);
-        
+
+        Note GetNoteById(int Id);
+
     }
 }

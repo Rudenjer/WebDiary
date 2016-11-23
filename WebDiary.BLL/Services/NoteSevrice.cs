@@ -28,5 +28,10 @@ namespace WebDiary.BLL.Services
             _unitOfWork.NoteRepository.Create(note);
             _unitOfWork.Save();
         }
+
+        public Note GetNoteById(int Id)
+        {
+            return _unitOfWork.NoteRepository.Get(Id);
+        }
     }
 }

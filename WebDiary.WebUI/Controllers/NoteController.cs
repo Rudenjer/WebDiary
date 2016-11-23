@@ -78,5 +78,26 @@ namespace WebDiary.Controllers
         }
 
 
+        public ActionResult NoteUpdate(int Id)
+        {
+            var Note = _noteService.GetNoteById(Id);
+
+            string tags = "";
+
+            foreach (var item in Note.Tags)
+            {
+                tags += item.Name.ToString() + " ";
+            }
+
+            AddNoteViewModel addNoteViewModel= new AddNoteViewModel() {Name = Note.Name, Message = Note.Message, Privacy = Note.Privacy, TagsString = tags};
+
+            return View(addNoteViewModel);
+
+
+        }
+
+        //ToDo create ViewModel with ID
+
+
     }
 }

@@ -243,6 +243,7 @@
     <None Include="Project_Readme.html" />
     <Content Include="Views\Note\Index.cshtml" />
     <Content Include="Views\Note\AddNote.cshtml" />
+    <Content Include="Views\Note\NoteUpdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebDiary.BLL\WebDiary.BLL.csproj">
