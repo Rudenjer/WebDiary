@@ -47,7 +47,7 @@ namespace WebDiary.Controllers
             if (ModelState.IsValid)
             {
 
-                string[] tags = addNote.TagsString.Split(',');
+                string[] tags = addNote.TagsString.Split(' ');
 
                 List<Tag> Tlist = new List<Tag>();
 
@@ -77,10 +77,11 @@ namespace WebDiary.Controllers
             }
         }
 
-
-        public ActionResult NoteUpdate(int Id)
+       
+        [HttpGet]
+        public ActionResult NoteUpdate(int id)
         {
-            var Note = _noteService.GetNoteById(Id);
+            var Note = _noteService.GetNoteById(id);
 
             string tags = "";
 
@@ -89,14 +90,68 @@ namespace WebDiary.Controllers
                 tags += item.Name.ToString() + " ";
             }
 
-            AddNoteViewModel addNoteViewModel= new AddNoteViewModel() {Name = Note.Name, Message = Note.Message, Privacy = Note.Privacy, TagsString = tags};
+            NoteUpdateViewModel NoteUpdateViewModel= new NoteUpdateViewModel() {Id = id, Name = Note.Name, Message = Note.Message, Privacy = Note.Privacy, TagsString = tags};
 
-            return View(addNoteViewModel);
+            return View(NoteUpdateViewModel);
 
 
         }
 
-        //ToDo create ViewModel with ID
+        [HttpPost]
+        public ActionResult NoteUpdate(NoteUpdateViewModel noteUpdateViewModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                var Note = _noteService.GetNoteById(noteUpdateViewModel.Id);
+
+                string[] tags = noteUpdateViewModel.TagsString.Split(' ');
+
+                List<Tag> Tlist = new List<Tag>();
+
+                foreach (var item in tags)
+                {
+                    if (item != "")
+                    {
+                        Tlist.Add(new Tag() {Name = item});
+                    }
+                }
+
+
+                Note.Message = noteUpdateViewModel.Message;
+                Note.Name = noteUpdateViewModel.Name;
+                Note.Tags = Tlist;
+                Note.Privacy = noteUpdateViewModel.Privacy;
+
+                _noteService.NoteUpdate(Note);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+
+        [HttpGet]
+        public ActionResult DeleteNote(int id)
+        {
+            var Note = _noteService.GetNoteById(id);
+
+            return View(Note);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteNote(Note note)
+        {
+            var Note = _noteService.GetNoteById(note.Id);
+            _noteService.DeleteNote(Note);
+
+            return RedirectToAction("Index");
+        }
+
 
 
     }

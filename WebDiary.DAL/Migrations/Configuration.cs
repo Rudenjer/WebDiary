@@ -42,21 +42,8 @@ namespace WebDiary.DAL.Migrations
                 userManager.AddToRole(admin.Id, role2.Name);
             }
 
-            //List<Tag> TagList = new List<Tag>();
-
-            //TagList.Add(new Tag(Name="gfhgffh"));
-
-            var sport = default(Tag);
-            var foot = default(Tag);
-            var basket = default(Tag);
-
-
-
-            //context.Set<Tag>().AddOrUpdate(d=>d.Name,
-            //    sport=new Tag() { Name = "Спорт" },
-            //    foot=new Tag() { Name = "Футбол"},
-            //    basket = new Tag() { Name = "Баскет" }
-            //    );
+            var sportTag = new Tag {Id = 1, Name = "Sport"};
+            context.Tags.AddOrUpdate(sportTag);
 
             context.Notes.AddOrUpdate( new Note[]
             {
@@ -67,9 +54,9 @@ namespace WebDiary.DAL.Migrations
                     Message = "Football is sucks",
                     Privacy = true,
                     User = userManager.Users.First(u => u.Email == admin.Email),
-                    Tags = new List<Tag>() { new Tag() {Name = "Спорт"}, new Tag() {Name = "Футбол" } }
+                    Tags = new List<Tag>() { sportTag }
 
-        },
+            },
                 new Note()
                 {
                     Name = "Basketball",
@@ -77,13 +64,9 @@ namespace WebDiary.DAL.Migrations
                     Message = "Basketball is for faggots",
                     Privacy = true,
                     User = userManager.Users.First(u => u.Email == admin.Email),
-                    Tags = new List<Tag>() { new Tag() {Name = "Спорт"}, new Tag() {Name = "Баксетбол" } }
+                    Tags = new List<Tag>() { sportTag }
                 }
             });
-
-
-
-
             context.SaveChanges();
         }
     }

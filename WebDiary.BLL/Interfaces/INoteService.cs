@@ -15,5 +15,8 @@ namespace WebDiary.BLL.Interfaces
 
         Note GetNoteById(int Id);
 
+        void NoteUpdate(Note note);
+
+        void DeleteNote(Note note);
     }
 }
