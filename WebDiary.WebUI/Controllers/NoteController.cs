@@ -18,14 +18,14 @@ namespace WebDiary.Controllers
 
 
         private readonly INoteService _noteService;
-        private readonly IUserService _userService;
+        private readonly ITagService _tagService;
 
-        public NoteController(INoteService noteService, IUserService userService)
+        public NoteController(INoteService noteService, ITagService tagService)
         {
             _noteService = noteService;
-            _userService = userService;
+            _tagService = tagService;
         }
-
+        
 
         // GET: Note
         public ActionResult Index()
@@ -81,18 +81,18 @@ namespace WebDiary.Controllers
         [HttpGet]
         public ActionResult NoteUpdate(int id)
         {
-            var Note = _noteService.GetNoteById(id);
+            var note = _noteService.GetNoteById(id);
+            var tags = _tagService.GetTagsByNote(note);
+            string tagsString = "";
 
-            string tags = "";
-
-            foreach (var item in Note.Tags)
+            foreach (var item in tags)
             {
-                tags += item.Name.ToString() + " ";
+                tagsString += item.Name + " ";
             }
 
-            NoteUpdateViewModel NoteUpdateViewModel= new NoteUpdateViewModel() {Id = id, Name = Note.Name, Message = Note.Message, Privacy = Note.Privacy, TagsString = tags};
+            NoteUpdateViewModel noteUpdateViewModel= new NoteUpdateViewModel() {Id = id, Name = note.Name, Message = note.Message, Privacy = note.Privacy, TagsString = tagsString};
 
-            return View(NoteUpdateViewModel);
+            return View(noteUpdateViewModel);
 
 
         }
@@ -104,27 +104,30 @@ namespace WebDiary.Controllers
             if (ModelState.IsValid)
             {
 
-                var Note = _noteService.GetNoteById(noteUpdateViewModel.Id);
+                var note = _noteService.GetNoteById(noteUpdateViewModel.Id);
 
                 string[] tags = noteUpdateViewModel.TagsString.Split(' ');
 
-                List<Tag> Tlist = new List<Tag>();
+                List<Tag> tlist = new List<Tag>();
 
-                foreach (var item in tags)
-                {
-                    if (item != "")
-                    {
-                        Tlist.Add(new Tag() {Name = item});
-                    }
-                }
+                //foreach (var item in tags)
+                //{
+                //    if (item != string.Empty && _tagService.GetAllTags().FirstOrDefault(t => t.Name == item) == null)
+                //    {
+                //        _tagService.AddTag(new Tag() {Name=item});
 
+                //        //tlist.Add(new Tag() { Name = item });
+                //    }
+                //    //tlist.Add(_tagService.GetByName(item));
+                //}
+                tlist.Add(new Tag() { Name = "Loh" });
+                tlist.Add(_tagService.GetByName("Loh"));
+                note.Message = noteUpdateViewModel.Message;
+                note.Name = noteUpdateViewModel.Name;
+                note.Tags = tlist;
+                note.Privacy = noteUpdateViewModel.Privacy;
 
-                Note.Message = noteUpdateViewModel.Message;
-                Note.Name = noteUpdateViewModel.Name;
-                Note.Tags = Tlist;
-                Note.Privacy = noteUpdateViewModel.Privacy;
-
-                _noteService.NoteUpdate(Note);
+                _noteService.NoteUpdate(note);
 
                 return RedirectToAction("Index");
             }

@@ -18,6 +18,8 @@ namespace WebDiary
 
             kernel.Bind<INoteService>().To<NoteSevrice>();
 
+            kernel.Bind<ITagService>().To<TagService>();
+
             return kernel;
         }
     }
