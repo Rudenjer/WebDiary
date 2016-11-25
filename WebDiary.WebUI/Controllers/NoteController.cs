@@ -8,6 +8,7 @@ using WebDiary.BLL.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using WebDiary.DAL.Entities;
 using WebDiary.ViewModels.NoteViewModels;
+using WebGrease;
 
 
 namespace WebDiary.Controllers
@@ -103,32 +104,13 @@ namespace WebDiary.Controllers
 
             if (ModelState.IsValid)
             {
-
                 var note = _noteService.GetNoteById(noteUpdateViewModel.Id);
-
-                string[] tags = noteUpdateViewModel.TagsString.Split(' ');
-
-                List<Tag> tlist = new List<Tag>();
-
-                //foreach (var item in tags)
-                //{
-                //    if (item != string.Empty && _tagService.GetAllTags().FirstOrDefault(t => t.Name == item) == null)
-                //    {
-                //        _tagService.AddTag(new Tag() {Name=item});
-
-                //        //tlist.Add(new Tag() { Name = item });
-                //    }
-                //    //tlist.Add(_tagService.GetByName(item));
-                //}
-                tlist.Add(new Tag() { Name = "Loh" });
-                tlist.Add(_tagService.GetByName("Loh"));
                 note.Message = noteUpdateViewModel.Message;
                 note.Name = noteUpdateViewModel.Name;
-                note.Tags = tlist;
                 note.Privacy = noteUpdateViewModel.Privacy;
 
                 _noteService.NoteUpdate(note);
-
+                _noteService.NoteUpdateByTags(note, _tagService.GatTagByString(noteUpdateViewModel.TagsString));
                 return RedirectToAction("Index");
             }
             else

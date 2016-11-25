@@ -45,6 +45,14 @@ namespace WebDiary.BLL.Services
             _unitOfWork.NoteRepository.Delete(note);
             _unitOfWork.Save();
         }
+
+        public void NoteUpdateByTags(Note note, ICollection<Tag> tags)
+        {
+            note.Tags.Clear();
+            note.Tags = tags;
+            _unitOfWork.NoteRepository.Update(note);
+            _unitOfWork.Save();
+        }
     }
    
 }

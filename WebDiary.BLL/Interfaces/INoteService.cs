@@ -18,5 +18,7 @@ namespace WebDiary.BLL.Interfaces
         void NoteUpdate(Note note);
 
         void DeleteNote(Note note);
+
+        void NoteUpdateByTags(Note note, ICollection<Tag> tags);
     }
 }

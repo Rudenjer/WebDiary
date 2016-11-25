@@ -53,7 +53,24 @@ namespace WebDiary.BLL.Services
 
         public IEnumerable<Tag> GetTagsByNote(Note note)
         {
-            return _unitOfWork.TagRepository.Select(t => t).Where(t=>t.Notes.Where(n => n.Id == note.Id).FirstOrDefault()!=null);
+            return _unitOfWork.TagRepository.Get().Where(t=>t.Notes.FirstOrDefault(n => n.Id == note.Id)!=null);
+        }
+
+        public ICollection<Tag> GatTagByString(string str)
+        {
+            string[] tags = str.Split(' ');
+            var result = _unitOfWork.TagRepository.Get().Where(t => tags.Contains(t.Name)).ToList();
+            foreach (var item in tags)
+            {
+                bool f = false;//булевая переменная для определения существует ли данный тег
+                foreach (var tag in result)
+                    if (tag.Name == item)
+                        f = true;
+                if (!f)
+                    _unitOfWork.TagRepository.Create(new Tag{Name=item});
+            }
+            _unitOfWork.Save();
+            return _unitOfWork.TagRepository.Get().Where(t => tags.Contains(t.Name)).ToList();
         }
     }
 }

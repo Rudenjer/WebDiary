@@ -17,5 +17,6 @@ namespace WebDiary.BLL.Interfaces
 
         void DeleteTag(Tag tag);
         IEnumerable<Tag> GetTagsByNote(Note note);
+        ICollection<Tag> GatTagByString(string str);
     }
 }
