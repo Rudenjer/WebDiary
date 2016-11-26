@@ -57,9 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filters\FilterForNotePagination.cs" />
+    <Compile Include="Filters\FilterSet.cs" />
     <Compile Include="Interfaces\INoteService.cs" />
     <Compile Include="Interfaces\ITagService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Models\Enums\PageSizeEnum.cs" />
+    <Compile Include="Paginations\PageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\NoteSevrice.cs" />
     <Compile Include="Services\TagService.cs" />

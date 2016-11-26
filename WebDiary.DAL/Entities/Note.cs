@@ -29,6 +29,8 @@ namespace WebDiary.DAL.Entities
         [Required]
         public string UserId { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public virtual ICollection<Tag> Tags { get; set; } = new List<Tag>();
 
     }

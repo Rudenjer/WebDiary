@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using WebDiary.BLL.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using WebDiary.BLL.Filters;
+using WebDiary.BLL.Models.Enums;
+using WebDiary.BLL.Paginations;
 using WebDiary.DAL.Entities;
 using WebDiary.ViewModels.NoteViewModels;
 
@@ -14,9 +17,6 @@ namespace WebDiary.Controllers
 {
     public class NoteController : Controller
     {
-
-
-
         private readonly INoteService _noteService;
         private readonly ITagService _tagService;
 
@@ -30,7 +30,16 @@ namespace WebDiary.Controllers
         // GET: Note
         public ActionResult Index()
         {
-            var NoteList = _noteService.GetNotesForUser(User.Identity.GetUserId());
+            var filter = new FilterSet
+            {
+                PageInfo = new PageInfo
+                {
+                    PageSize = PageSizeEnum.Ten,
+                    PageNumber = 1,
+                    TotalItems = _noteService.CountNotes(User.Identity.GetUserId())
+                }
+            };
+            var NoteList = _noteService.GetNotesForUser(User.Identity.GetUserId(), filter);
 
             return View(NoteList);
         }
@@ -113,16 +122,17 @@ namespace WebDiary.Controllers
         [HttpGet]
         public ActionResult DeleteNote(int id)
         {
-            var Note = _noteService.GetNoteById(id);
+            var note = _noteService.GetNoteById(id);
 
-            return View(Note);
+            return View(note);
         }
 
         [HttpPost]
         public ActionResult DeleteNote(Note note)
         {
-            var Note = _noteService.GetNoteById(note.Id);
-            _noteService.DeleteNote(Note);
+            var currentNote = _noteService.GetNoteById(note.Id);
+            currentNote.IsDeleted = true;
+            _noteService.NoteUpdate(currentNote);
 
             return RedirectToAction("Index");
         }

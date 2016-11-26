@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using WebDiary.DAL.Pipeline;
 using WebDiary.DAL.Repository.Interfaces;
 
 namespace WebDiary.DAL.Repository
@@ -27,6 +28,11 @@ namespace WebDiary.DAL.Repository
                 query = query.Where(filter);
             }
             return query.ToList();
+        }
+
+        public IEnumerable<TEntity> GetOfSort(IPipeline<TEntity> pipeline)
+        {
+            return pipeline.Process(_dbSet);
         }
 
         public virtual TEntity Get(TKey id)
