@@ -46,17 +46,9 @@ namespace WebDiary.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 string[] tags = addNote.TagsString.Split(' ');
 
-                List<Tag> Tlist = new List<Tag>();
-
-                foreach (var item in tags)
-                {
-                    Tlist.Add(new Tag() {Name = item});
-                }
-
-                Note note = new Note()
+                var note = new Note()
                 {
                     Date = DateTime.UtcNow,
                     //User = _userService.GetUserById(User.Identity.GetUserId()),
@@ -64,10 +56,9 @@ namespace WebDiary.Controllers
                     Message = addNote.Message,
                     UserId = User.Identity.GetUserId(),
                     Privacy = addNote.Privacy,
-                    Tags = Tlist
                 };
 
-                _noteService.AddNote(note);
+                _noteService.AddNote(note, tags);
 
                 return RedirectToAction("Index");
             }
@@ -83,7 +74,7 @@ namespace WebDiary.Controllers
         {
             var note = _noteService.GetNoteById(id);
             var tags = _tagService.GetTagsByNote(note);
-            string tagsString = "";
+            string tagsString = string.Empty;
 
             foreach (var item in tags)
             {
@@ -100,34 +91,15 @@ namespace WebDiary.Controllers
         [HttpPost]
         public ActionResult NoteUpdate(NoteUpdateViewModel noteUpdateViewModel)
         {
-
             if (ModelState.IsValid)
             {
-
                 var note = _noteService.GetNoteById(noteUpdateViewModel.Id);
-
-                string[] tags = noteUpdateViewModel.TagsString.Split(' ');
-
-                List<Tag> tlist = new List<Tag>();
-
-                //foreach (var item in tags)
-                //{
-                //    if (item != string.Empty && _tagService.GetAllTags().FirstOrDefault(t => t.Name == item) == null)
-                //    {
-                //        _tagService.AddTag(new Tag() {Name=item});
-
-                //        //tlist.Add(new Tag() { Name = item });
-                //    }
-                //    //tlist.Add(_tagService.GetByName(item));
-                //}
-                tlist.Add(new Tag() { Name = "Loh" });
-                tlist.Add(_tagService.GetByName("Loh"));
+                string[] tags = noteUpdateViewModel.TagsString.Split(' '); 
                 note.Message = noteUpdateViewModel.Message;
                 note.Name = noteUpdateViewModel.Name;
-                note.Tags = tlist;
                 note.Privacy = noteUpdateViewModel.Privacy;
 
-                _noteService.NoteUpdate(note);
+                _noteService.NoteUpdate(note, tags);
 
                 return RedirectToAction("Index");
             }

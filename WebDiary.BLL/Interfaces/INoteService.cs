@@ -11,11 +11,11 @@ namespace WebDiary.BLL.Interfaces
     {
         IEnumerable<Note> GetNotesForUser(string userId);
 
-        void AddNote(Note note);
+        void AddNote(Note note, string[] tags);
 
         Note GetNoteById(int Id);
 
-        void NoteUpdate(Note note);
+        void NoteUpdate(Note note, string[] tags);
 
         void DeleteNote(Note note);
     }

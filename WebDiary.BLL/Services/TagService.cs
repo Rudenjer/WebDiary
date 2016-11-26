@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebDiary.BLL.Interfaces;
 using WebDiary.DAL.Entities;
 using WebDiary.DAL.Repository.Interfaces;
@@ -36,7 +33,7 @@ namespace WebDiary.BLL.Services
 
         public Tag GetByName(string name)
         {
-            return _unitOfWork.TagRepository.Get(t => t.Name == name).First();
+            return _unitOfWork.TagRepository.Get(t => t.Name == name).FirstOrDefault();
         }
 
         public void TagUpdate(Tag tag)
@@ -53,7 +50,7 @@ namespace WebDiary.BLL.Services
 
         public IEnumerable<Tag> GetTagsByNote(Note note)
         {
-            return _unitOfWork.TagRepository.Select(t => t).Where(t=>t.Notes.Where(n => n.Id == note.Id).FirstOrDefault()!=null);
+            return _unitOfWork.TagRepository.Select(t => t).Where(t=>t.Notes.FirstOrDefault(n => n.Id == note.Id)!=null);
         }
     }
 }
