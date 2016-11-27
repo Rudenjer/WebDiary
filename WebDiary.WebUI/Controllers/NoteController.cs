@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using WebDiary.BLL.Interfaces;
 using WebDiary.BLL.Filters;
-using WebDiary.BLL.Models.Enums;
-using WebDiary.BLL.Paginations;
+using WebDiary.BLL.Interfaces;
 using WebDiary.DAL.Entities;
+using WebDiary.DAL.PaginationClasses;
+using WebDiary.DAL.PaginationClasses.Enum;
 using WebDiary.ViewModels.NoteViewModels;
 
 
@@ -15,30 +15,31 @@ namespace WebDiary.Controllers
     {
         private readonly INoteService _noteService;
         private readonly ITagService _tagService;
+        private readonly IUserService _userService;
 
-        public NoteController(INoteService noteService, ITagService tagService)
+        public NoteController(INoteService noteService, ITagService tagService, IUserService userService)
         {
             _noteService = noteService;
             _tagService = tagService;
+            _userService = userService;
         }
         
 
         // GET: Note
-        public ActionResult Index()
+        public ActionResult Index(string pageNumber = "1")
         {
+            var user = _userService.GetUserById(User.Identity.GetUserId());
+            user.Notes = _noteService.GetNotesForUserWithoutFilter(User.Identity.GetUserId());
+            InitializeUser();
+            user.PageInfo.PageNumber = Convert.ToInt32(pageNumber);
+
             var filter = new FilterSet
             {
-                PageInfo = new PageInfo
-                {
-                    PageSize = PageSizeEnum.Ten,
-                    PageNumber = 1,
-                    TotalItems = _noteService.CountNotes(User.Identity.GetUserId())
-                }
+                PageInfo = user.PageInfo
             };
-            var noteList = _noteService.GetNotesForUser(User.Identity.GetUserId(), filter);
-
-            return View(noteList);
-        }
+            user.Notes = _noteService.GetNotesForUser(User.Identity.GetUserId(), filter);
+            return View(user.Notes);
+         }
 
         [HttpGet]
         public ActionResult AddNote()
@@ -56,7 +57,6 @@ namespace WebDiary.Controllers
                 var note = new Note()
                 {
                     Date = DateTime.UtcNow,
-                    //User = _userService.GetUserById(User.Identity.GetUserId()),
                     Name = addNote.Name,
                     Message = addNote.Message,
                     UserId = User.Identity.GetUserId(),
@@ -133,7 +133,20 @@ namespace WebDiary.Controllers
             return RedirectToAction("Index");
         }
 
+        public void InitializeUser()
+        {
+            var user = _userService.GetUserById(User.Identity.GetUserId());
 
-
+            if (user.PageInfo.TotalItems == 0 && user.PageInfo.PageSize == 0)
+            {
+                user.PageInfo = new PageInfo
+                {
+                    PageSize = PageSizeEnum.Ten,
+                    PageNumber = 1,
+                    TotalItems = _userService.CountNotes(User.Identity.GetUserId())
+                };
+            }
+            _userService.UserUpdate(user);
+        }
     }
 }

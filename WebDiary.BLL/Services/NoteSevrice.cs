@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using WebDiary.BLL.Filters;
 using WebDiary.BLL.Interfaces;
@@ -19,11 +20,17 @@ namespace WebDiary.BLL.Services
             _pipeline = pipeline;
         }
 
+        public IEnumerable<Note> GetNotesForUserWithoutFilter(string userId)
+        {
+            return _unitOfWork.NoteRepository.Get(m => m.UserId == userId && !m.IsDeleted);
+        }
+
         public IEnumerable<Note> GetNotesForUser(string userId, FilterSet filters)
         {
             _pipeline.Register(new FilterForGamePaged(filters.PageInfo));
+            var notes = _unitOfWork.NoteRepository.Get(m => m.UserId == userId && !m.IsDeleted);
 
-            return _unitOfWork.NoteRepository.Get(m => m.UserId == userId && !m.IsDeleted);
+            return GetOfSort(notes.AsQueryable(), _pipeline);
         }
 
         public void AddNote(Note note, string[] tags)
@@ -55,9 +62,9 @@ namespace WebDiary.BLL.Services
             _unitOfWork.Save();
         }
 
-        public int CountNotes(string id)
+        private IEnumerable<Note> GetOfSort(IQueryable<Note> notes, IPipeline<Note> pipeline)
         {
-            return _unitOfWork.NoteRepository.Get(n => n.UserId == id).Count();
+            return pipeline.Process(notes);
         }
 
         private void SetTagsForNote(Note note, string[] tags)

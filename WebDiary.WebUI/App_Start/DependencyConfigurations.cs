@@ -1,6 +1,8 @@
 ﻿using Ninject;
 using WebDiary.BLL.Interfaces;
 using WebDiary.BLL.Services;
+using WebDiary.DAL.Entities;
+using WebDiary.DAL.Pipeline;
 using WebDiary.DAL.Repository;
 using WebDiary.DAL.Repository.Interfaces;
 
@@ -19,6 +21,7 @@ namespace WebDiary
             kernel.Bind<INoteService>().To<NoteSevrice>();
 
             kernel.Bind<ITagService>().To<TagService>();
+            kernel.Bind<IPipeline<Note>>().To<Pipeline<Note>>();
 
             return kernel;
         }

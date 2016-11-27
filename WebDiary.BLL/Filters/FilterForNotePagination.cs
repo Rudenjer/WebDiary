@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using WebDiary.BLL.Paginations;
 using WebDiary.DAL.Entities;
+using WebDiary.DAL.PaginationClasses;
 using WebDiary.DAL.Repository.Interfaces;
 
 namespace WebDiary.BLL.Filters

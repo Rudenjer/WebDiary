@@ -110,7 +110,13 @@
     <Compile Include="Migrations\201611261308106_Add_isDeleted_inNote.Designer.cs">
       <DependentUpon>201611261308106_Add_isDeleted_inNote.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611271706084_AddPageInfoForUser.cs" />
+    <Compile Include="Migrations\201611271706084_AddPageInfoForUser.Designer.cs">
+      <DependentUpon>201611271706084_AddPageInfoForUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="PaginationClasses\Enum\PageSizeEnum.cs" />
+    <Compile Include="PaginationClasses\PageInfo.cs" />
     <Compile Include="Pipeline\IPipeline.cs" />
     <Compile Include="Pipeline\Pipeline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -139,6 +145,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611261308106_Add_isDeleted_inNote.resx">
       <DependentUpon>201611261308106_Add_isDeleted_inNote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611271706084_AddPageInfoForUser.resx">
+      <DependentUpon>201611271706084_AddPageInfoForUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

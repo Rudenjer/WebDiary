@@ -1,7 +1,7 @@
 ﻿using System;
-using WebDiary.BLL.Models.Enums;
+using WebDiary.DAL.PaginationClasses.Enum;
 
-namespace WebDiary.BLL.Paginations
+namespace WebDiary.DAL.PaginationClasses
 {
     public class PageInfo
     {

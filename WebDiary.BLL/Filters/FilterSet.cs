@@ -1,4 +1,4 @@
-﻿using WebDiary.BLL.Paginations;
+﻿using WebDiary.DAL.PaginationClasses;
 
 namespace WebDiary.BLL.Filters
 {

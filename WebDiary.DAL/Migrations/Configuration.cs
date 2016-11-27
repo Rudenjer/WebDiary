@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WebDiary.DAL.Context;
 using WebDiary.DAL.Entities;
+using WebDiary.DAL.PaginationClasses;
 
 namespace WebDiary.DAL.Migrations
 {
@@ -29,7 +30,7 @@ namespace WebDiary.DAL.Migrations
             roleManager.Create(role1);
             roleManager.Create(role2);
 
-            var admin = new ApplicationUser { Email = "denjers@yandex.ru", UserName = "denjers@yandex.ru" };
+            var admin = new ApplicationUser { Email = "denjers@yandex.ru", UserName = "denjers@yandex.ru", PageInfo = new PageInfo()};
             string password = "1997Totti1997";
             var result = userManager.Create(admin, password);
 

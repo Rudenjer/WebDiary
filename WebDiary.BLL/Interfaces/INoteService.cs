@@ -6,13 +6,13 @@ namespace WebDiary.BLL.Interfaces
 {
     public interface INoteService
     {
-        int CountNotes(string id);
-
         IEnumerable<Note> GetNotesForUser(string userId, FilterSet filters);
 
         void AddNote(Note note, string[] tags);
 
         Note GetNoteById(int id);
+
+        IEnumerable<Note> GetNotesForUserWithoutFilter(string userId);
 
         void NoteUpdate(Note note, string[] tags=null);
 
