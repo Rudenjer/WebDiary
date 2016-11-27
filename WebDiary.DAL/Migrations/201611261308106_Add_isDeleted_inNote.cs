@@ -1,9 +1,8 @@
 namespace WebDiary.DAL.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Add_isDeleted_inNote : DbMigration
+    public partial class AddIsDeletedInNote : DbMigration
     {
         public override void Up()
         {

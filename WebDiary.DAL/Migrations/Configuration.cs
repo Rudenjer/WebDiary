@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Data.Common;
-using System.IO.Ports;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WebDiary.DAL.Context;
@@ -9,7 +7,6 @@ using WebDiary.DAL.Entities;
 namespace WebDiary.DAL.Migrations
 {
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 

@@ -7,9 +7,9 @@ namespace WebDiary.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class addtagsdata : IMigrationMetadata
+    public sealed partial class Addtagsdata : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addtagsdata));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Addtagsdata));
         
         string IMigrationMetadata.Id
         {

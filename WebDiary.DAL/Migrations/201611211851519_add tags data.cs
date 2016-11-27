@@ -1,9 +1,8 @@
 namespace WebDiary.DAL.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addtagsdata : DbMigration
+    public partial class Addtagsdata : DbMigration
     {
         public override void Up()
         {

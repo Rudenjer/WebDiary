@@ -7,9 +7,9 @@ namespace WebDiary.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Add_isDeleted_inNote : IMigrationMetadata
+    public sealed partial class AddIsDeletedInNote : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Add_isDeleted_inNote));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddIsDeletedInNote));
         
         string IMigrationMetadata.Id
         {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using WebDiary.BLL.Paginations;
 using WebDiary.DAL.Entities;
 using WebDiary.DAL.Repository.Interfaces;

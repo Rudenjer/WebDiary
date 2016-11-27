@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using WebDiary.BLL.Interfaces;
-using System.ComponentModel.DataAnnotations;
 using WebDiary.BLL.Filters;
 using WebDiary.BLL.Models.Enums;
 using WebDiary.BLL.Paginations;
@@ -39,9 +35,9 @@ namespace WebDiary.Controllers
                     TotalItems = _noteService.CountNotes(User.Identity.GetUserId())
                 }
             };
-            var NoteList = _noteService.GetNotesForUser(User.Identity.GetUserId(), filter);
+            var noteList = _noteService.GetNotesForUser(User.Identity.GetUserId(), filter);
 
-            return View(NoteList);
+            return View(noteList);
         }
 
         [HttpGet]
