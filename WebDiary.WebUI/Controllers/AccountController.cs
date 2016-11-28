@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebDiary.DAL.Context;
 using WebDiary.DAL.Entities;
+using WebDiary.DAL.PaginationClasses;
 using WebDiary.Models;
 
 namespace WebDiary.Controllers
@@ -146,6 +147,7 @@ namespace WebDiary.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                user.PageInfo=new PageInfo();
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
