@@ -115,10 +115,6 @@
     <Compile Include="Migrations\201611271706084_AddPageInfoForUser.Designer.cs">
       <DependentUpon>201611271706084_AddPageInfoForUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611281919193_fix comments 3.cs" />
-    <Compile Include="Migrations\201611281919193_fix comments 3.Designer.cs">
-      <DependentUpon>201611281919193_fix comments 3.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PaginationClasses\Enum\PageSizeEnum.cs" />
     <Compile Include="PaginationClasses\PageInfo.cs" />
@@ -153,9 +149,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611271706084_AddPageInfoForUser.resx">
       <DependentUpon>201611271706084_AddPageInfoForUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611281919193_fix comments 3.resx">
-      <DependentUpon>201611281919193_fix comments 3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
