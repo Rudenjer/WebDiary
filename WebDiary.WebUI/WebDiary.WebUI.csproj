@@ -197,6 +197,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\NoteViewModels\AddNoteViewModel.cs" />
     <Compile Include="ViewModels\NoteViewModels\NoteUpdateViewModel.cs" />
+    <Compile Include="ViewModels\NoteViewModels\ShowNotesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -206,8 +207,13 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-3.1.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config" />
@@ -247,6 +253,8 @@
     <Content Include="Views\Note\AddNote.cshtml" />
     <Content Include="Views\Note\NoteUpdate.cshtml" />
     <Content Include="Views\Note\DeleteNote.cshtml" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebDiary.BLL\WebDiary.BLL.csproj">

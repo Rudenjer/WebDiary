@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using WebDiary.BLL.Filters;
@@ -25,20 +26,32 @@ namespace WebDiary.Controllers
         }
         
 
-        // GET: Note
-        public ActionResult Index(string pageNumber = "1")
+        [HttpGet]
+        public ActionResult Index(ShowNotesViewModel showNotesViewModel)
         {
-            var user = _userService.GetUserById(User.Identity.GetUserId());
-            user.Notes = _noteService.GetNotesForUserWithoutFilter(User.Identity.GetUserId());
-            InitializeUser();
-            user.PageInfo.PageNumber = Convert.ToInt32(pageNumber);
-
-            var filter = new FilterSet
+            if (showNotesViewModel.Notes == null && showNotesViewModel.PageInfo == null) 
             {
-                PageInfo = user.PageInfo
-            };
-            user.Notes = _noteService.GetNotesForUser(User.Identity.GetUserId(), filter);
-            return View(user.Notes);
+                showNotesViewModel = new ShowNotesViewModel
+                {
+                    Notes = _noteService.GetNotesForUserWithoutFilter(User.Identity.GetUserId())
+                };
+            }
+            InitializeUser(showNotesViewModel);
+            showNotesViewModel.PageInfo.TotalItems = _noteService.GetNotesForUserWithoutFilter(User.Identity.GetUserId()).Count();
+            if (ModelState.IsValid)
+            {
+                var filters = new FilterSet
+                {
+                    PageInfo = showNotesViewModel.PageInfo
+                };
+                showNotesViewModel.Notes = _noteService.GetNotesForUser(User.Identity.GetUserId(), filters);
+
+                return View(showNotesViewModel);
+            }
+
+            showNotesViewModel.Notes = _noteService.GetNotesForUserWithoutFilter(User.Identity.GetUserId());
+
+            return View(showNotesViewModel);
          }
 
         [HttpGet]
@@ -133,20 +146,29 @@ namespace WebDiary.Controllers
             return RedirectToAction("Index");
         }
 
-        public void InitializeUser()
+        public void InitializeUser(ShowNotesViewModel showNotesViewModel)
         {
             var user = _userService.GetUserById(User.Identity.GetUserId());
+            user.Notes = _noteService.GetNotesForUserWithoutFilter(User.Identity.GetUserId());
 
-            if (user.PageInfo.TotalItems == 0 && user.PageInfo.PageSize == 0)
+            showNotesViewModel.PageInfo = showNotesViewModel.PageInfo ?? new PageInfo
             {
-                user.PageInfo = new PageInfo
-                {
-                    PageSize = PageSizeEnum.Ten,
-                    PageNumber = 1,
-                    TotalItems = _userService.CountNotes(User.Identity.GetUserId())
-                };
-            }
-            _userService.UserUpdate(user);
+                PageSize = PageSizeEnum.Five,
+                PageNumber = 1,
+                TotalItems = _userService.CountNotes(User.Identity.GetUserId())
+            };
+
+            //if (user.PageInfo.TotalItems == 0 && user.PageInfo.PageSize == 0)
+            //{
+            //    user.Notes = _noteService.GetNotesForUserWithoutFilter(User.Identity.GetUserId());
+            //    user.PageInfo = new PageInfo
+            //    {
+            //        PageSize = PageSizeEnum.Ten,
+            //        PageNumber = 1,
+            //        TotalItems = _userService.CountNotes(User.Identity.GetUserId())
+            //    };
+            //}
+            //_userService.UserUpdate(user);
         }
     }
 }
