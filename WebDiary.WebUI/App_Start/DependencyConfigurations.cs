@@ -21,7 +21,11 @@ namespace WebDiary
             kernel.Bind<INoteService>().To<NoteSevrice>();
 
             kernel.Bind<ITagService>().To<TagService>();
+
+            kernel.Bind<ICommentService>().To<ICommentService>();
+
             kernel.Bind<IPipeline<Note>>().To<Pipeline<Note>>();
+
 
             return kernel;
         }

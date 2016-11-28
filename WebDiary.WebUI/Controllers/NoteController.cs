@@ -170,5 +170,10 @@ namespace WebDiary.Controllers
             //}
             //_userService.UserUpdate(user);
         }
+
+        public ActionResult Note(int id)
+        {
+            return  View(_noteService.GetNoteById(id));
+        }
     }
 }

@@ -10,6 +10,8 @@ namespace WebDiary.DAL.Context
 
         public DbSet<Note> Notes { get; set; }
 
+        public DbSet<Comment> Comments { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

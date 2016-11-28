@@ -10,6 +10,8 @@ namespace WebDiary.DAL.Repository.Interfaces
 
         IRepository<ApplicationUser, string> UserRepository { get; }
 
+        IRepository<Comment, int> CommentRepository { get; } 
+
         void Save();
     }
 }

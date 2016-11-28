@@ -32,11 +32,8 @@
 
     @foreach (var item in Model.Notes)
     {
-        <div>
-            <a href=""><h4 class="media-heading">@item.Name</h4></a>
-            @item.Message
-            <a href="">Полностью</a>
-        </div>
+        
+        <h4>@Html.ActionLink(@item.Name, "Note", "Note", new { id = item.Id }, null)</h4>
         <div>
             <div class="col-md-2">
                 @item.Date

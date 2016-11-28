@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.Mime;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WebDiary.DAL.Context;
@@ -42,6 +43,8 @@ namespace WebDiary.DAL.Migrations
 
             var sportTag = new Tag {Id = 1, Name = "Sport"};
             context.Tags.AddOrUpdate(sportTag);
+
+            context.Comments.AddOrUpdate(new Comment() {UserId = admin.Id, NoteId = 1, Text = "Lelelele", DateTime = DateTime.UtcNow});
 
             context.Notes.AddOrUpdate( new Note[]
             {

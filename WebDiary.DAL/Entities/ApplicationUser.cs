@@ -13,6 +13,8 @@ namespace WebDiary.DAL.Entities
 
         public virtual IEnumerable<Note> Notes { get; set; } = new List<Note>();
 
+        public virtual IEnumerable<Comment> Comments { get; set; } = new List<Comment>(); 
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Обратите внимание, что authenticationType должен совпадать с типом, определенным в CookieAuthenticationOptions.AuthenticationType
