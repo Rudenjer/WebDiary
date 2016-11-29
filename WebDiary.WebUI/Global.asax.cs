@@ -12,7 +12,7 @@ namespace WebDiary
         protected void Application_Start()
         {
             var kernel = DependencyConfigurations.RegisterDependency();
-            Database.SetInitializer<ApplicationDbContext>(null);
+            //Database.SetInitializer<ApplicationDbContext>(null);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

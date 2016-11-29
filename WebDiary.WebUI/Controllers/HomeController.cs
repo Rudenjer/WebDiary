@@ -15,9 +15,12 @@ namespace WebDiary.Controllers
 
         public ActionResult Index()
         {
-            var user = _userService.GetUserById(User.Identity.GetUserId());
-            return View(user);
-        }
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Note");
+            }
+            return View();
+        } 
 
         public ActionResult Contact()
         {
