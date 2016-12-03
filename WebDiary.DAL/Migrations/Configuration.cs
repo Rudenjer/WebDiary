@@ -42,7 +42,15 @@ namespace WebDiary.DAL.Migrations
             var sportTag = new Tag { Id = 1, Name = "Sport" };
             context.Tags.AddOrUpdate(sportTag);
 
-            //context.Comments.AddOrUpdate(new Comment() {UserId = admin.Id, NoteId = 1, Text = "Lelelele", DateTime = DateTime.UtcNow});
+            Comment comment = new Comment()
+            {
+                UserId = admin.Id,
+                NoteId = 1,
+                Text = "Lelelele",
+                DateTime = DateTime.UtcNow
+            };
+            context.Comments.AddOrUpdate(comment);
+            context.SaveChanges();
 
             context.Notes.AddOrUpdate(new Note[]
             {
@@ -53,7 +61,8 @@ namespace WebDiary.DAL.Migrations
                     Message = "Football is sucks",
                     Privacy = true,
                     User = userManager.Users.First(u => u.Email == admin.Email),
-                    Tags = new List<Tag>() { sportTag }
+                    Tags = new List<Tag>() { sportTag },
+                    Comments = new List<Comment> { comment }
 
             },
                 new Note()
