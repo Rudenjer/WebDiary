@@ -21,6 +21,7 @@ namespace WebDiary.BLL.Services
 
         public int CountNotes(string id)
         {
+
             return _unitOfWork.UserRepository.Get(id).Notes.Count();
         }
 

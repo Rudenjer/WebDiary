@@ -8,8 +8,6 @@ namespace WebDiary.BLL.Interfaces
     {
         IEnumerable<Note> GetNotesForUser(string userId, FilterSet filters);
 
-        IEnumerable<Note> GetAllPublicNotes();
-
         void AddNote(Note note, string[] tags);
 
         Note GetNoteById(int id);

@@ -29,10 +29,11 @@ namespace WebDiary.Controllers
         [HttpGet]
         public ActionResult Index(ShowNotesViewModel showNotesViewModel)
         {
-            if (showNotesViewModel.Notes == null && showNotesViewModel.PageInfo == null) 
+            if (showNotesViewModel.Notes == null && showNotesViewModel.PageInfo == null)
             {
                 showNotesViewModel = new ShowNotesViewModel
                 {
+
                     Notes = _noteService.GetNotesForUserWithoutFilter(User.Identity.GetUserId())
                 };
             }
@@ -45,7 +46,6 @@ namespace WebDiary.Controllers
                     PageInfo = showNotesViewModel.PageInfo
                 };
                 showNotesViewModel.Notes = _noteService.GetNotesForUser(User.Identity.GetUserId(), filters);
-
                 return View(showNotesViewModel);
             }
 
@@ -53,7 +53,6 @@ namespace WebDiary.Controllers
 
             return View(showNotesViewModel);
          }
-
         [HttpGet]
         public ActionResult AddNote()
         {
@@ -148,16 +147,25 @@ namespace WebDiary.Controllers
 
         public void InitializeUser(ShowNotesViewModel showNotesViewModel)
         {
-            var user = _userService.GetUserById(User.Identity.GetUserId());
-            user.Notes = _noteService.GetNotesForUserWithoutFilter(User.Identity.GetUserId());
-
+            if (User.Identity.GetUserId() != null)
+            {
+                var user = _userService.GetUserById(User.Identity.GetUserId());
+                user.Notes = _noteService.GetNotesForUserWithoutFilter(User.Identity.GetUserId());
+            }
             showNotesViewModel.PageInfo = showNotesViewModel.PageInfo ?? new PageInfo
             {
                 PageSize = PageSizeEnum.Five,
-                PageNumber = 1,
-                TotalItems = _userService.CountNotes(User.Identity.GetUserId())
+                PageNumber = 1
             };
-
+            if (User.Identity.GetUserId() == null)
+            {
+                showNotesViewModel.PageInfo.TotalItems =
+                    _noteService.GetNotesForUserWithoutFilter(User.Identity.GetUserId()).Count();
+            }
+            else
+            {
+                showNotesViewModel.PageInfo.TotalItems = _userService.CountNotes(User.Identity.GetUserId());
+            }
             //if (user.PageInfo.TotalItems == 0 && user.PageInfo.PageSize == 0)
             //{
             //    user.Notes = _noteService.GetNotesForUserWithoutFilter(User.Identity.GetUserId());

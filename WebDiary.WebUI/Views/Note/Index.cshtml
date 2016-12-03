@@ -9,65 +9,69 @@
     <title>Index</title>
 </head>
 <body>
-    
-@using (Html.BeginForm("Index", "Note", FormMethod.Get, new { @class = "form-horizontal", role = "form", @id = "filterForm", @name = "filterForm" }))
-{
-    <div class="form-group">
-        @Html.LabelFor(u => u.PageInfo.PageSize, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.EnumDropDownListFor(u => u.PageInfo.PageSize, new { @class = "form-control" })
-        </div>
-    </div>
-    @Html.HiddenFor(u => u.PageInfo.PageNumber, new { @class = "pageNumber" })
-    @Html.HiddenFor(u => u.PageInfo.PageSize)
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" id="filter" value="Filter" />
-        </div>
-    </div>
-}
 
-<div>
-    <br>
-
-    @foreach (var item in Model.Notes)
+    @using (Html.BeginForm("Index", "Note", FormMethod.Get, new { @class = "form-horizontal", role = "form", @id = "filterForm", @name = "filterForm" }))
     {
-        
-        <h4>@Html.ActionLink(@item.Name, "Note", "Note", new { id = item.Id }, null)</h4>
-        <div>
-            <div class="col-md-2">
-                @item.Date
-            </div>
-            <div class="col-md-2 .col-md-offset-4">
-                @item.Privacy
+        <div class="form-group">
+            @Html.LabelFor(u => u.PageInfo.PageSize, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(u => u.PageInfo.PageSize, new { @class = "form-control" })
             </div>
         </div>
-        <div>
-            @foreach (var tag in item.Tags)
+        @Html.HiddenFor(u => u.PageInfo.PageNumber, new { @class = "pageNumber" })
+        @Html.HiddenFor(u => u.PageInfo.PageSize)
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" id="filter" value="Filter" />
+            </div>
+        </div>
+    }
+
+    <div>
+        <br>
+
+        @foreach (var item in Model.Notes)
+        {
+
+            <h4>@Html.ActionLink(@item.Name, "Note", "Note", new {id = item.Id}, null)</h4>
+            <div>
+                <div class="col-md-2">
+                    @item.Date
+                </div>
+                <div class="col-md-2 .col-md-offset-4">
+                    @item.Privacy
+                </div>
+            </div>
+            <div>
+                @foreach (var tag in item.Tags)
+                {
+                    <span class="label label-primary">@tag.Name</span>
+                }
+
+            </div>
+            if (Request.IsAuthenticated)
+             {
+                 @Html.ActionLink("Delete", "DeleteNote", "Note", new {id = item.Id}, null)
+             }
+            <hr>
+        }
+
+        </div>
+
+        <div class="btn-group">
+            @for (var i = 1; i <= Model.PageInfo.TotalPages; i++)
             {
-                <span class="label label-primary">@tag.Name</span>
+                if (Model.PageInfo.PageNumber == i)
+                {
+                    <span class="selected btn-primary btn btn-default">@i</span>
+                }
+                else
+                {
+                    <button class="btn btn-default paginationButton" id="paginationButton" type="submit" form="filterForm"> @i </button>
+                }
             }
         </div>
-        @Html.ActionLink("Delete", "DeleteNote", "Note", new {id = item.Id}, null)
-        <hr>
-    }
-
-</div>
-
-<div class="btn-group">
-    @for (var i = 1; i <= Model.PageInfo.TotalPages; i++)
-    {
-        if (Model.PageInfo.PageNumber == i)
-        {
-            <span class="selected btn-primary btn btn-default">@i</span>
-        }
-        else
-        {
-            <button class="btn btn-default paginationButton" id ="paginationButton" type="submit" form="filterForm"> @i </button>
-        }
-    }
-</div>
-</body>
+    </body>
 </html>
 <script>
     $(".paginationButton")

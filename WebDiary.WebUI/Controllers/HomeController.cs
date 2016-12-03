@@ -1,6 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using WebDiary.BLL.Interfaces;
+using WebDiary.DAL.PaginationClasses;
+using WebDiary.DAL.PaginationClasses.Enum;
+using WebDiary.ViewModels.NoteViewModels;
 
 namespace WebDiary.Controllers
 {
@@ -17,21 +21,25 @@ namespace WebDiary.Controllers
 
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Note");
-            }
-            var model = _noteService.GetAllPublicNotes();
-            return View(model);
-        } 
+             return RedirectToAction("Index", "Note");
+        }
+
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-            ViewBag.USERID = User.Identity.GetUserId();
-            var user=_userService.GetUserById(User.Identity.GetUserId());
+            ViewBag.Message
+                = "Your contact page.";
+            ViewBag.USERID
+                =
+                User.Identity.GetUserId
+                    ();
 
-            return View(user);
+            var user = _userService.GetUserById(User.Identity.GetUserId());
+
+            return
+
+                View(user);
         }
     }
+
 }

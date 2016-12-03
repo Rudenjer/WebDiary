@@ -21,21 +21,29 @@ namespace WebDiary.BLL.Services
 
         public IEnumerable<Note> GetNotesForUserWithoutFilter(string userId)
         {
+            if (userId ==null)
+            {
+                return _unitOfWork.NoteRepository.Get(n => !n.Privacy && !n.IsDeleted);
+            }
             return _unitOfWork.NoteRepository.Get(m => m.UserId == userId && !m.IsDeleted);
         }
 
         public IEnumerable<Note> GetNotesForUser(string userId, FilterSet filters)
         {
             _pipeline.Register(new FilterForGamePaged(filters.PageInfo));
-            var notes = _unitOfWork.NoteRepository.Get(m => m.UserId == userId && !m.IsDeleted);
+            IEnumerable<Note> notes;
+            if (userId == null)
+            {
+                notes = _unitOfWork.NoteRepository.Get(n => !n.Privacy && !n.IsDeleted);
+            }
+            else
+            {
+                notes = _unitOfWork.NoteRepository.Get(m => m.UserId == userId && !m.IsDeleted);
+            }
 
             return GetOfSort(notes.AsQueryable(), _pipeline);
         }
-
-        public IEnumerable<Note> GetAllPublicNotes()
-        {
-            return _unitOfWork.NoteRepository.Get(n => !n.Privacy);
-        }
+        
 
         public void AddNote(Note note, string[] tags)
         {
