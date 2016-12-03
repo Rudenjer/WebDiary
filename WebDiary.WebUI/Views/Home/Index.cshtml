@@ -1,9 +1,30 @@
-﻿@model WebDiary.DAL.Entities.ApplicationUser
+﻿@model IEnumerable<WebDiary.DAL.Entities.Note>
 @{
     ViewBag.Title = "Home Page";
 }
 
-@*@if (Model.Email!=null)
-{
-    @Model.Email
-}*@
+<div>
+    <br>
+
+    @foreach (var item in Model)
+    {
+
+        <h4>@Html.ActionLink(@item.Name, "Note", "Note", new { id = item.Id }, null)</h4>
+        <div>
+            <div class="col-md-2">
+                @item.Date
+            </div>
+            <div class="col-md-2 .col-md-offset-4">
+                @item.Privacy
+            </div>
+        </div>
+        <div>
+            @foreach (var tag in item.Tags)
+            {
+                <span class="label label-primary">@tag.Name</span>
+            }
+        </div>
+        <hr>
+    }
+
+</div>

@@ -32,6 +32,11 @@ namespace WebDiary.BLL.Services
             return GetOfSort(notes.AsQueryable(), _pipeline);
         }
 
+        public IEnumerable<Note> GetAllPublicNotes()
+        {
+            return _unitOfWork.NoteRepository.Get(n => !n.Privacy);
+        }
+
         public void AddNote(Note note, string[] tags)
         {
             SetTagsForNote(note, tags);

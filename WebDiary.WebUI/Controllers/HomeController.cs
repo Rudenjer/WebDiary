@@ -7,10 +7,12 @@ namespace WebDiary.Controllers
     public class HomeController : Controller
     {
         private readonly IUserService _userService;
+        private readonly INoteService _noteService;
 
-        public HomeController(IUserService userService)
+        public HomeController(IUserService userService, INoteService noteService)
         {
             _userService = userService;
+            _noteService = noteService;
         }
 
         public ActionResult Index()
@@ -19,7 +21,8 @@ namespace WebDiary.Controllers
             {
                 return RedirectToAction("Index", "Note");
             }
-            return View();
+            var model = _noteService.GetAllPublicNotes();
+            return View(model);
         } 
 
         public ActionResult Contact()
