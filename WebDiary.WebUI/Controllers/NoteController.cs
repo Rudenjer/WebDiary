@@ -53,6 +53,7 @@ namespace WebDiary.Controllers
 
             return View(showNotesViewModel);
          }
+
         [HttpGet]
         public ActionResult AddNote()
         {
@@ -166,17 +167,6 @@ namespace WebDiary.Controllers
             {
                 showNotesViewModel.PageInfo.TotalItems = _userService.CountNotes(User.Identity.GetUserId());
             }
-            //if (user.PageInfo.TotalItems == 0 && user.PageInfo.PageSize == 0)
-            //{
-            //    user.Notes = _noteService.GetNotesForUserWithoutFilter(User.Identity.GetUserId());
-            //    user.PageInfo = new PageInfo
-            //    {
-            //        PageSize = PageSizeEnum.Ten,
-            //        PageNumber = 1,
-            //        TotalItems = _userService.CountNotes(User.Identity.GetUserId())
-            //    };
-            //}
-            //_userService.UserUpdate(user);
         }
 
         public ActionResult Note(int id)

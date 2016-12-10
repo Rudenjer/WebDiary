@@ -1,10 +1,6 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using WebDiary.BLL.Interfaces;
-using WebDiary.DAL.PaginationClasses;
-using WebDiary.DAL.PaginationClasses.Enum;
-using WebDiary.ViewModels.NoteViewModels;
 
 namespace WebDiary.Controllers
 {
@@ -35,7 +31,7 @@ namespace WebDiary.Controllers
                     ();
 
             var user = _userService.GetUserById(User.Identity.GetUserId());
-
+            
             return
 
                 View(user);
