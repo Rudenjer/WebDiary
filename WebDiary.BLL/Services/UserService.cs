@@ -25,6 +25,11 @@ namespace WebDiary.BLL.Services
             return _unitOfWork.UserRepository.Get(id).Notes.Count();
         }
 
+        public ApplicationUser GetUserByName(string name)
+        {
+            return _unitOfWork.UserRepository.Get(u => u.Email == name).First();
+        }
+
         public void UserUpdate(ApplicationUser user)
         {
             _unitOfWork.UserRepository.Update(user);

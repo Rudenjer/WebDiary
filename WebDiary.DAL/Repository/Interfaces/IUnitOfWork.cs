@@ -10,7 +10,9 @@ namespace WebDiary.DAL.Repository.Interfaces
 
         IRepository<ApplicationUser, string> UserRepository { get; }
 
-        IRepository<Comment, int> CommentRepository { get; } 
+        IRepository<Comment, int> CommentRepository { get; }
+
+        IRepository<RequestFriend, int> RequestFriendRepository { get; }
 
         void Save();
     }

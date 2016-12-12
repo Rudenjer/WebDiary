@@ -30,6 +30,5 @@ namespace WebDiary.DAL.Entities
         public virtual ICollection<Tag> Tags { get; set; } = new List<Tag>();
 
         public  virtual ICollection<Comment> Comments { get; set; } = new List<Comment>(); 
-
     }
 }

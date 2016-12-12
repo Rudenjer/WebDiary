@@ -12,6 +12,8 @@ namespace WebDiary.DAL.Context
 
         public DbSet<Comment> Comments { get; set; }
 
+        public DbSet<RequestFriend> RequestFriends { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

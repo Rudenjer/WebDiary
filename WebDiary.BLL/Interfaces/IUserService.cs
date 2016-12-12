@@ -9,5 +9,7 @@ namespace WebDiary.BLL.Interfaces
         void UserUpdate(ApplicationUser user);
 
         int CountNotes(string id);
+
+        ApplicationUser GetUserByName(string name);
     }
 }

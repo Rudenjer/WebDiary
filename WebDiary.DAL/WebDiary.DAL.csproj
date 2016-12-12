@@ -90,6 +90,7 @@
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Note.cs" />
+    <Compile Include="Entities\RequestFriend.cs" />
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Migrations\201611191128102_InitialCreate.cs" />
     <Compile Include="Migrations\201611191128102_InitialCreate.Designer.cs">
@@ -118,6 +119,10 @@
     <Compile Include="Migrations\201611290656057_aaa.cs" />
     <Compile Include="Migrations\201611290656057_aaa.Designer.cs">
       <DependentUpon>201611290656057_aaa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612121727465_ss.cs" />
+    <Compile Include="Migrations\201612121727465_ss.Designer.cs">
+      <DependentUpon>201612121727465_ss.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PaginationClasses\Enum\PageSizeEnum.cs" />
@@ -156,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611290656057_aaa.resx">
       <DependentUpon>201611290656057_aaa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612121727465_ss.resx">
+      <DependentUpon>201612121727465_ss.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

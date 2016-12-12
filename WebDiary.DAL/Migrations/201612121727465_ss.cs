@@ -1,0 +1,28 @@
+namespace WebDiary.DAL.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class ss : DbMigration
+    {
+        public override void Up()
+        {
+            CreateTable(
+                "dbo.RequestFriends",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.String(),
+                        FriendId = c.String(),
+                        Status = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+        }
+        
+        public override void Down()
+        {
+            DropTable("dbo.RequestFriends");
+        }
+    }
+}

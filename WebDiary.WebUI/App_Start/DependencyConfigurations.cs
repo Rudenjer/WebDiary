@@ -26,6 +26,7 @@ namespace WebDiary
 
             kernel.Bind<IPipeline<Note>>().To<Pipeline<Note>>();
 
+            kernel.Bind<IRequestFriendService>().To<RequestFriendService>();
 
             return kernel;
         }

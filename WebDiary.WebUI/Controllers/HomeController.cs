@@ -7,17 +7,24 @@ namespace WebDiary.Controllers
     public class HomeController : Controller
     {
         private readonly IUserService _userService;
-        private readonly INoteService _noteService;
+        private readonly IRequestFriendService _requestFriendService;
 
-        public HomeController(IUserService userService, INoteService noteService)
+        public HomeController(IUserService userService, IRequestFriendService requestFriendService)
         {
             _userService = userService;
-            _noteService = noteService;
+            _requestFriendService = requestFriendService;
         }
 
         public ActionResult Index()
         {
-             return RedirectToAction("Index", "Note");
+            if (User.Identity.IsAuthenticated)
+            {
+                _requestFriendService.AddFriend(User.Identity.GetUserId(), "ae0f3565-7ce0-4b09-bf73-3588a499bbb0");
+                var friends = _requestFriendService.GetAllFriends(User.Identity.GetUserId());
+                return View("Friends", friends);
+            }
+
+            return View();
         }
 
 
