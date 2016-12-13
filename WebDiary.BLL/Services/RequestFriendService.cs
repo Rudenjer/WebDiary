@@ -33,7 +33,7 @@ namespace WebDiary.BLL.Services
             _unitOfWork.Save();
         }
 
-        public void ConfirmRequest(int id)
+        public void ConfirmRequest(int id)   //подтверждение
         {
             var request = _unitOfWork.RequestFriendRepository.Get(id);
             request.Status = "Confirmed";

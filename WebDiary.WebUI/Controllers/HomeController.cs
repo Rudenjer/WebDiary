@@ -43,6 +43,27 @@ namespace WebDiary.Controllers
 
                 View(user);
         }
+
+        [HttpGet]
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Search(string search)
+        {
+            //_requestFriendService.GetAllFriends();
+
+
+            return View();
+        }
     }
 
 }
+
+
+/*Todo: 1. Search в леяуте
+//2. Список друзей, которіе не добавлені
+3.  */
+
