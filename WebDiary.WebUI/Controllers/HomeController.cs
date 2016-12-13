@@ -17,17 +17,9 @@ namespace WebDiary.Controllers
 
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                _requestFriendService.AddFriend(User.Identity.GetUserId(), "ae0f3565-7ce0-4b09-bf73-3588a499bbb0");
-                var friends = _requestFriendService.GetAllFriends(User.Identity.GetUserId());
-                return View("Friends", friends);
-            }
-
             return View();
         }
-
-
+        
         public ActionResult Contact()
         {
             ViewBag.Message
