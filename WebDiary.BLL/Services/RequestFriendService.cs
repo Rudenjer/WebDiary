@@ -17,10 +17,27 @@ namespace WebDiary.BLL.Services
 
         public IEnumerable<ApplicationUser> GetAllFriends(string id)
         {
-            var userFriendRelations = _unitOfWork.RequestFriendRepository.Get(f => f.FriendId == id && f.Status != "InProgress");
+            var userFriendRelations = _unitOfWork.RequestFriendRepository.Get(f => (f.FriendId == id) && f.Status != "InProgress");
+            var selectUsers =
+            userFriendRelations.Select(friend => _unitOfWork.UserRepository.Get(friend.UserId))
+            .Where(u => u.Id != id);
 
-            return userFriendRelations.Select(friend => _unitOfWork.UserRepository.Get(friend.FriendId)).ToList();
+            var userFriendRelationsReverse = _unitOfWork.RequestFriendRepository.Get(f => (f.UserId == id) && f.Status != "InProgress");
+            var selectUsersReverse =
+            userFriendRelationsReverse.Select(friend => _unitOfWork.UserRepository.Get(friend.FriendId))
+            .Where(u => u.Id != id);
+
+            return selectUsers.Union(selectUsersReverse);
         }
+
+
+        //public IEnumerable<Note> GetFriendsNotes(string id)
+        //{
+        //    var friends = GetAllFriends(id);
+        //    var notes = _unitOfWork.NoteRepository.Get(n => n.Id == friends.Contains())
+
+        //    return
+        //}
 
         public IEnumerable<ApplicationUser> GetAllFriendsNotConfirmed(string id)
         {

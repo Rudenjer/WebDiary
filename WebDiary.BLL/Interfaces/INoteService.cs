@@ -17,5 +17,9 @@ namespace WebDiary.BLL.Interfaces
         void NoteUpdate(Note note, string[] tags=null);
 
         void DeleteNote(Note note);
+
+        IEnumerable<Note> GetNotes(IEnumerable<Note> notes, FilterSet filters);
+
+        IEnumerable<Note> GetAllNotes();
     }
 }

@@ -19,7 +19,7 @@ namespace WebDiary.Controllers
 
         public ActionResult SearchFriend(string searchQuery)
         {
-            var users = _userService.SearchUserByEmail(searchQuery);
+            var users = _userService.SearchUserByEmail(searchQuery).Where(u => u.Id != User.Identity.GetUserId());
 
             return View(users);
         }

@@ -43,7 +43,16 @@ namespace WebDiary.BLL.Services
 
             return GetOfSort(notes.AsQueryable(), _pipeline);
         }
-        
+
+        public IEnumerable<Note> GetNotes(IEnumerable<Note> notes, FilterSet filters)
+        {
+            _pipeline.Register(new FilterForGamePaged(filters.PageInfo));
+
+            var notesREsult = _unitOfWork.NoteRepository.Get(n => !n.Privacy && !n.IsDeleted);
+
+            return GetOfSort(notesREsult.AsQueryable(), _pipeline);
+        }
+
 
         public void AddNote(Note note, string[] tags)
         {
@@ -97,5 +106,10 @@ namespace WebDiary.BLL.Services
                 }
             }
         }
+
+        public IEnumerable<Note> GetAllNotes()
+        {
+            return _unitOfWork.NoteRepository.Get();
+        } 
     }
 }

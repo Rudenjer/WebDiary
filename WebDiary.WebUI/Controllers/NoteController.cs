@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -17,14 +18,68 @@ namespace WebDiary.Controllers
         private readonly INoteService _noteService;
         private readonly ITagService _tagService;
         private readonly IUserService _userService;
+        private readonly IRequestFriendService _friendService;
 
-        public NoteController(INoteService noteService, ITagService tagService, IUserService userService)
+        public NoteController(INoteService noteService, ITagService tagService, IUserService userService, IRequestFriendService friendService)
         {
             _noteService = noteService;
             _tagService = tagService;
             _userService = userService;
+            _friendService = friendService;
         }
-        
+
+
+        [HttpGet]
+        public ActionResult Feed(ShowNotesViewModel showNotesViewModel)
+        {
+
+
+
+            List<Note> friendNotes = new List<Note>();
+
+            if(!User.Identity.IsAuthenticated)
+                friendNotes.AddRange(_noteService.GetAllNotes());
+            else
+            {
+                var friends = _friendService.GetAllFriends(User.Identity.GetUserId());
+
+                foreach (var item in friends)
+                {
+                    friendNotes.AddRange(item.Notes);
+                    //showNotesViewModel.Notes.Add(item.Notes);
+                }
+            }
+
+            
+
+            //showNotesViewModel.Notes = friendNotes;
+
+           // return View(showNotesViewModel);
+
+            if (showNotesViewModel.Notes == null && showNotesViewModel.PageInfo == null)
+            {
+                showNotesViewModel = new ShowNotesViewModel
+                {
+
+                    Notes = friendNotes
+                };
+            }
+            InitializeUser(showNotesViewModel);
+            showNotesViewModel.PageInfo.TotalItems = friendNotes.Count;
+            if (ModelState.IsValid)
+            {
+                var filters = new FilterSet
+                {
+                    PageInfo = showNotesViewModel.PageInfo
+                };
+                showNotesViewModel.Notes = _noteService.GetNotes(friendNotes, filters);
+                return View(showNotesViewModel);
+            }
+
+            showNotesViewModel.Notes = friendNotes;
+
+            return View(showNotesViewModel);
+        }
 
         [HttpGet]
         public ActionResult Index(ShowNotesViewModel showNotesViewModel)

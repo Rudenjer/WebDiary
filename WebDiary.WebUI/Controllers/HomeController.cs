@@ -36,20 +36,20 @@ namespace WebDiary.Controllers
                 View(user);
         }
 
-        [HttpGet]
-        public ActionResult Search()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public ActionResult Search()
+        //{
+        //    return View();
+        //}
 
-        [HttpGet]
-        public ActionResult Search(string search)
-        {
-            //_requestFriendService.GetAllFriends();
+        //[HttpGet]
+        //public ActionResult Search(string search)
+        //{
+        //    //_requestFriendService.GetAllFriends();
 
 
-            return View();
-        }
+        //    return View();
+        //}
     }
 
 }
