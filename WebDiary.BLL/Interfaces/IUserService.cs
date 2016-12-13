@@ -1,4 +1,5 @@
-﻿using WebDiary.DAL.Entities;
+﻿using System.Collections.Generic;
+using WebDiary.DAL.Entities;
 
 namespace WebDiary.BLL.Interfaces
 {
@@ -11,5 +12,7 @@ namespace WebDiary.BLL.Interfaces
         int CountNotes(string id);
 
         ApplicationUser GetUserByName(string name);
+
+        IEnumerable<ApplicationUser> SearchUserByEmail(string email);
     }
 }

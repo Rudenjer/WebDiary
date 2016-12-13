@@ -41,5 +41,10 @@ namespace WebDiary.BLL.Services
             _unitOfWork.RequestFriendRepository.Update(request);
             _unitOfWork.Save();
         }
+
+        public IEnumerable<RequestFriend> GetAllFriends()
+        {
+            return _unitOfWork.RequestFriendRepository.Get();
+        }
     }
 }

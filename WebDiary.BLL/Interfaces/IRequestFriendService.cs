@@ -10,5 +10,7 @@ namespace WebDiary.BLL.Interfaces
         void AddFriend(string idUser, string idFriend);
 
         void ConfirmRequest(int id);
+
+        IEnumerable<RequestFriend> GetAllFriends();
     }
 }

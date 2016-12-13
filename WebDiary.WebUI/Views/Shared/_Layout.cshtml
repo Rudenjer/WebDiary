@@ -20,16 +20,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("WebDiary", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Home page", "Index", "Home")</li>
                     @if (Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Добавить", "AddNote", "Note")</li>
+                        <li>@Html.ActionLink("Add note", "AddNote", "Note")</li>
+                        <li>@Html.ActionLink("Requests", "AddNote", "Note")</li>
                     }
-                    <li><a href ="mailto:egor.xilyuk1997@gmail.com">Помощь</a></li>
+                    <li><a href ="mailto:egor.xilyuk1997@gmail.com">Help</a></li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -39,7 +40,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year – WebDiary</p>
         </footer>
     </div>
 

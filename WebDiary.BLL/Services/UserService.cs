@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using WebDiary.BLL.Interfaces;
 using WebDiary.DAL.Entities;
 using WebDiary.DAL.Repository.Interfaces;
@@ -28,6 +29,11 @@ namespace WebDiary.BLL.Services
         public ApplicationUser GetUserByName(string name)
         {
             return _unitOfWork.UserRepository.Get(u => u.Email == name).First();
+        }
+
+        public IEnumerable<ApplicationUser> SearchUserByEmail(string email)
+        {
+            return _unitOfWork.UserRepository.Get(u => u.Email.Contains(email));
         }
 
         public void UserUpdate(ApplicationUser user)
