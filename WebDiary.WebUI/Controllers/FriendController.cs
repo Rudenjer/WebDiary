@@ -46,5 +46,25 @@ namespace WebDiary.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public ActionResult Requests()
+        {
+            var userFriendNotConfirmed = _requestFriendService.GetAllFriendsNotConfirmed(User.Identity.GetUserId());
+
+            return View(userFriendNotConfirmed);
+        }
+
+        public ActionResult Confirmed(string id)
+        {
+            var user = _requestFriendService.FindRequest(User.Identity.GetUserId(), id);
+            _requestFriendService.ConfirmRequest(user.Id);
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Friends()
+        {
+            return View(_requestFriendService.GetAllFriends(User.Identity.GetUserId()));
+        }
     }
 }

@@ -28,7 +28,8 @@
                     @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Add note", "AddNote", "Note")</li>
-                        <li>@Html.ActionLink("Requests", "AddNote", "Note")</li>
+                        <li>@Html.ActionLink("Requests", "Requests", "Friend")</li>
+                        <li>@Html.ActionLink("Friend", "Friends", "Friend")</li>
                     }
                     <li><a href ="mailto:egor.xilyuk1997@gmail.com">Help</a></li>
                 </ul>

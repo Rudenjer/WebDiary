@@ -17,9 +17,19 @@ namespace WebDiary.BLL.Services
 
         public IEnumerable<ApplicationUser> GetAllFriends(string id)
         {
-            var userFriendRelations = _unitOfWork.RequestFriendRepository.Get(f => f.UserId == id);
+            var userFriendRelations = _unitOfWork.RequestFriendRepository.Get(f => f.FriendId == id && f.Status != "InProgress");
 
             return userFriendRelations.Select(friend => _unitOfWork.UserRepository.Get(friend.FriendId)).ToList();
+        }
+
+        public IEnumerable<ApplicationUser> GetAllFriendsNotConfirmed(string id)
+        {
+            var userFriendRelations = _unitOfWork.RequestFriendRepository.Get(f => f.FriendId == id);
+
+            return
+                userFriendRelations.Where(u => u.Status == "InProgress")
+                    .Select(friend => _unitOfWork.UserRepository.Get(friend.UserId))
+                    .ToList();
         }
 
         public void AddFriend(string idUser, string idFriend)
@@ -40,6 +50,11 @@ namespace WebDiary.BLL.Services
             
             _unitOfWork.RequestFriendRepository.Update(request);
             _unitOfWork.Save();
+        }
+
+        public RequestFriend FindRequest(string userId, string friendId)
+        {
+            return _unitOfWork.RequestFriendRepository.Get(r => r.UserId == friendId && r.FriendId == userId).First();
         }
 
         public IEnumerable<RequestFriend> GetAllFriends()
